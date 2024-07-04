@@ -11,6 +11,7 @@
             <li><a href="{{ route('Home') }}" class="hover:text-gray-300">Home</a></li>
             <li><a href="{{ route('Contact') }}" class="hover:text-gray-300">Contact</a></li>
             <li><a href="{{ route('About') }}" class="hover:text-gray-300">About</a></li>
+            <li><a href="{{ route('Register') }}" class="hover:text-gray-300">Register</a></li>
         </ul>
     </div>
 

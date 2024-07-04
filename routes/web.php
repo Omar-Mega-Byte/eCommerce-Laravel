@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\AuthController;
 Route::get('/', function () {
     return view('pages/welcome',[
         'page_name' => 'Home Page',
@@ -35,3 +35,12 @@ Route::get('/category/{id}/posts/{post}', function ($id,$post) {
         'the_post' => $post
     ]);
 })->name('Category');
+
+Route::get('/register', function () {
+    return view('auth/register',[
+        'page_name' => 'Register Page',
+        'page_description' => 'This is Description',
+    ]);
+})->name('Register');
+
+Route::post('/register', [AuthController::class , 'register'])->name('auth');

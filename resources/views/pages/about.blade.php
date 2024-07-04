@@ -1,6 +1,8 @@
 @extends('layout.master')
 
-@section('header_title', "{{$page_name}}")
+@section('title')
+    {{ $page_name }}
+@endsection
 
 @section('main_content')
     <div class="bg-white p-8 rounded-lg shadow-md">
