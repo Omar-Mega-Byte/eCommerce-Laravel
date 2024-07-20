@@ -3,32 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>@yield('title', 'Unknown Page')</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Merriweather:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-gray-50 text-gray-900">
-    <header class="bg-blue-900 text-white py-4 shadow-lg">
-        <div class="container mx-auto flex justify-between items-center px-6">
-            <div class="text-3xl font-extrabold hover:text-yellow-400 transition duration-300">eCommerce</div>
-            @include('layout.navbar')
-        </div>
-    </header>
-
-    <div class="container mx-auto flex flex-wrap px-6 py-10">
-        <aside class="w-full md:w-1/4 mb-10 md:mb-0">
-            @include('layout.sidebar')
-        </aside>
-
-        <main class="w-full md:w-3/4 mx-20 md:mx-0">
-            @yield('main_content')
-        </main>
+<body class="flex flex-col min-h-screen bg-gray-100">
+<header class="bg-gradient-to-t from-blue-600 to-purple-700 p-4">
+    <div class="container mx-auto flex justify-between items-center">
+        @include('layout.navbar')
     </div>
+</header>
 
-    @yield('additional_sections')
+<aside>
+    @include('layout.sidebar')
+</aside>
 
-    <footer class="bg-gray-800 text-white py-6 mt-10">
-        <div class="container mx-auto text-center">
-            <p>@yield('footer_text', '© 2024 My Website. All rights reserved.')</p>
-        </div>
-    </footer>
+<main class="flex-grow m-10">
+    @yield('main_content')
+</main>
+
+@yield('additional_sections')
+
+<footer class="bg-blue-900 text-white p-4">
+    <div class="container mx-auto text-center">
+        <p>@yield('footer_text', '© 2024 eCommerce. All rights reserved.')</p>
+    </div>
+</footer>
 </body>
 </html>

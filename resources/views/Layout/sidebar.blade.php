@@ -1,52 +1,46 @@
-
 <head>
     <!-- Other meta tags and stylesheets -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" integrity="sha512-..." crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<!-- HTML structure with sidebar initially hidden -->
-<div id="sidebar" class="bg-gray-200 p-4 rounded-lg shadow-lg fixed top-0 right-0 h-full w-64 transform translate-x-full transition-transform duration-300 ease-in-out">
-    <h2 class="text-lg font-semibold mb-4">E-commerce Links</h2>
-    <ul class="space-y-2">
-        <li><a href="#" class="text-blue-600 hover:underline">Shop</a></li>
-        <li><a href="#" class="text-blue-600 hover:underline">Products</a></li>
-        <li><a href="#" class="text-blue-600 hover:underline">Cart</a></li>
-        <li><a href="#" class="text-blue-600 hover:underline">Checkout</a></li>
-    </ul>
-</div>
 
-<!-- Trigger icon/button to toggle sidebar -->
-<button id="sidebarToggle" class="fixed top-4 right-4 bg-gray-300 text-gray-700 p-2 rounded-md shadow-md">
-    <!-- Font Awesome icon -->
-    <i class="fas fa-bars"></i>
-</button>
+<body class="bg-gray-100">
 
-<script>
-    // JavaScript to toggle sidebar visibility
-    const sidebar = document.getElementById('sidebar');
-    const sidebarToggle = document.getElementById('sidebarToggle');
+    <!-- Sidebar initially hidden -->
+    <div id="sidebar" class="fixed top-0 right-0 h-full w-64 bg-gradient-to-l from-blue-400 to-purple-600 text-white p-6 transform translate-x-full transition-transform duration-300 ease-in-out shadow-lg rounded-l-lg z-50">
+        <h2 class="text-xl font-semibold mb-6">E-commerce Links</h2>
+        <ul class="space-y-4">
+            <li><a href="#" class="text-white hover:text-gray-300">Shop</a></li>
+            <li><a href="#" class="text-white hover:text-gray-300">Products</a></li>
+            <li><a href="#" class="text-white hover:text-gray-300">Cart</a></li>
+            <li><a href="#" class="text-white hover:text-gray-300">Checkout</a></li>
+        </ul>
+    </div>
 
-    sidebarToggle.addEventListener('click', () => {
-        sidebar.classList.toggle('translate-x-full');
-        sidebar.classList.toggle('-translate-x-0');
-        sidebarToggle.classList.toggle('active'); // Toggle active class for button
-    });
-</script>
+    <!-- Overlay -->
+    <div id="overlay" class="fixed inset-0 bg-black opacity-50 hidden z-40"></div>
 
-<style>
-    /* Additional styles for the toggle button */
-    #sidebarToggle {
-        transition: background-color 0.3s ease;
-        /* Add any other styles as needed */
-    }
+    <!-- Trigger icon/button to toggle sidebar -->
+    <button id="sidebarToggle" class="fixed top-4 right-4 bg-gradient-to-r from-blue-700 to-purple-600 text-white p-3 rounded-md shadow-md focus:outline-none transition-transform duration-300 ease-in-out" style="z-index: 9999;">
+        <!-- Font Awesome icon -->
+        <i class="fas fa-bars"></i>
+    </button>
 
-    #sidebarToggle.active {
-        background-color: #3182ce; /* Example color change when active */
-        /* Add any other styles as needed */
-    }
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const sidebarToggle = document.getElementById('sidebarToggle');
 
-    /* Styling for the Font Awesome icon */
-    #sidebarToggle i {
-        font-size: 1.5rem; /* Adjust icon size */
-        /* Add any other styles as needed */
-    }
-</style>
+            sidebarToggle.addEventListener('click', function () {
+                sidebar.classList.toggle('translate-x-full');
+                overlay.classList.toggle('hidden');
+            });
+
+            overlay.addEventListener('click', function () {
+                sidebar.classList.add('translate-x-full');
+                overlay.classList.add('hidden');
+            });
+        });
+    </script>
+</body>

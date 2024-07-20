@@ -5,35 +5,52 @@
 @endsection
 
 @section('main_content')
-    <div class="bg-white p-8 rounded-lg shadow-md">
-        <h1 class="text-3xl font-bold mb-4">{{$page_name}}</h1>
-        <p>Welcome to the {{$page_name}} of my website. This is a sample page content styled with Tailwind CSS.</p>
-        <!-- Additional Content -->
-        <div class="mt-8">
-            <h2 class="text-2xl font-semibold mb-4">Latest Articles</h2>
-            <ul class="space-y-4">
-                <li class="p-4 bg-gray-100 rounded-lg shadow-sm">
-                    <h3 class="text-xl font-bold">Article 1</h3>
-                    <p class="text-gray-700">Summary of the first article...</p>
-                </li>
-                <li class="p-4 bg-gray-100 rounded-lg shadow-sm">
-                    <h3 class="text-xl font-bold">Article 2</h3>
-                    <p class="text-gray-700">Summary of the second article...</p>
-                </li>
-            </ul>
-        </div>
+@if (session('success'))
+<div>
+    <p class="text-green-500 font-bold mb-5">
+        <x-flashMsg msg="{{session('success')}}"/></p>
+</div>
+@endif
+
+<!-- Contact Us Form -->
+<div class="bg-white p-6 rounded-lg shadow-lg mb-6">
+<h2 class="text-2xl font-semibold text-gray-900 mb-6">Contact Us!</h2>
+<form action="{{ route('contacts.store') }}" method="POST">
+    @csrf
+
+<!-- NameField -->
+<div class="mb-6">
+    <label for="name" class="block text-gray-700 font-medium mb-2">Your Name</label>
+    <input type="text" id="name" name="name" class="block w-full mt-1 p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
+    @error('name')
+        <p class="text-red-500 font-bold text-xs italic mt-2">{{ $message }}</p>
+    @enderror
+</div>
+
+<!-- Email Field -->
+<div class="mb-6">
+    <label for="email" class="block text-gray-700 font-medium mb-2">Your Email</label>
+    <input type="text" id="email" name="email" class="block w-full mt-1 p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
+    @error('email')
+        <p class="text-red-500 font-bold text-xs italic mt-2">{{ $message }}</p>
+    @enderror
+</div>
+
+<!-- Message Field -->
+<div class="mb-6">
+    <label for="message" class="block text-gray-700 font-medium mb-2">Your Message</label>
+    <textarea id="message" name="message" class="block w-full mt-1 p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500" rows="5"></textarea>
+    @error('message')
+        <p class="text-red-500 font-bold text-xs italic mt-2">{{ $message }}</p>
+    @enderror
+</div>
+
+    <div class="flex justify-end">
+        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300">Submit</button>
     </div>
+</form>
+</div>
 @endsection
-
-@section('additional_sections')
-    <section class="bg-gray-200 py-8">
-        <div class="container mx-auto text-center">
-            <h2 class="text-2xl font-bold mb-4">Additional Section</h2>
-            <p>This is an additional section that can be used for special announcements or features.</p>
-        </div>
-    </section>
-@endsection
-
 @section('footer_text')
-    © 2024 My Website. Built with Laravel and Tailwind CSS.
+    © 2024 My Website. Built with Laravel and cooler Tailwind CSS.
 @endsection
