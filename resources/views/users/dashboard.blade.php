@@ -1,3 +1,4 @@
+@props(['post', 'full' => false])
 @extends('layout.master')
 
 @section('title', 'E-commerce Dashboard')
@@ -6,40 +7,43 @@
 <div class="container mx-auto">
     <!-- Welcome Section -->
     <div class="mb-10">
-        <h1 class="text-3xl font-extrabold text-blue-800">Welcome, {{ auth()->user()->name }}</h1>
+        <h1 class="text-3xl font-extrabold text-blue-800 font-pacifico">Welcome, {{ auth()->user()->name }}</h1>
+        <p class="text-gray-600 font-lobster">You have {{$posts->total()}} posts</p>
         <p class="text-gray-600">Here's an overview of your eCommerce activities.</p>
     </div>
 
     <!-- Statistics Cards -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <div class="bg-gradient-to-r from-blue-400 to-blue-500 text-white p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105" x-data="{ tooltip: false }" @mouseover="tooltip = true" @mouseleave="tooltip = false">
-            <h2 class="text-lg font-semibold">Total Sales</h2>
-            <p class="text-2xl font-bold">$<span id="totalSales">123,456.78</span></p>
+            <h2 class="text-lg font-semibold font-bebas">Total Sales</h2>
+            <p class="text-2xl font-bold font-righteous">$<span id="totalSales">123,456.78</span></p>
             <div x-show="tooltip" class="absolute bg-gray-700 text-white text-xs rounded py-1 px-4 right-0 bottom-full mb-2">Total revenue generated</div>
         </div>
         <div class="bg-gradient-to-r from-green-400 to-green-500 text-white p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105" x-data="{ tooltip: false }" @mouseover="tooltip = true" @mouseleave="tooltip = false">
-            <h2 class="text-lg font-semibold">New Orders</h2>
-            <p class="text-2xl font-bold"><span id="newOrders">150</span></p>
+            <h2 class="text-lg font-semibold font-bebas">New Orders</h2>
+            <p class="text-2xl font-bold font-righteous"><span id="newOrders">150</span></p>
             <div x-show="tooltip" class="absolute bg-gray-700 text-white text-xs rounded py-1 px-4 right-0 bottom-full mb-2">Orders received today</div>
         </div>
         <div class="bg-gradient-to-r from-purple-400 to-purple-500 text-white p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105" x-data="{ tooltip: false }" @mouseover="tooltip = true" @mouseleave="tooltip = false">
-            <h2 class="text-lg font-semibold">Total Customers</h2>
-            <p class="text-2xl font-bold"><span id="totalCustomers">1,234</span></p>
+            <h2 class="text-lg font-semibold font-bebas">Total Customers</h2>
+            <p class="text-2xl font-bold font-righteous"><span id="totalCustomers">1,234</span></p>
             <div x-show="tooltip" class="absolute bg-gray-700 text-white text-xs rounded py-1 px-4 right-0 bottom-full mb-2">Number of registered customers</div>
         </div>
     </div>
 
+    <!-- Sessions -->
     @if (session('success'))
-    <div>
-        <p class="text-green-500 font-bold mb-5">
-            <x-flashMsg msg="{{session('success')}}"/></p>
-    </div>
-@endif
+        <x-flashMsg msg="{{session('success')}}"/>
+    @elseif (session('delete'))
+        <x-flashMsg msg="{{session('delete')}}"/>
+    @elseif (session('update'))
+        <x-flashMsg msg="{{session('update')}}"/>
+    @endif
 
 <!-- Posts Form -->
 <div class="bg-white p-6 rounded-lg shadow-lg mb-6">
     <h2 class="text-2xl font-semibold text-gray-900 mb-6">Create a New Post</h2>
-    <form action="{{ route('posts.store') }}" method="POST">
+    <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <!-- Title Field -->
     <div class="mb-6">
@@ -59,26 +63,72 @@
         @enderror
     </div>
 
-        <div class="flex justify-end">
-            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300">Submit</button>
-        </div>
+    {{-- post image --}}
+    <div class="mb-4">
+        <label for="image">Cover photo</label>
+        <input type="file" name="image" id="image">
+    </div>
+
+    @error('image')
+        <p class="text-red-500 font-bold text-xs italic mt-2">{{ $message }}</p>
+    @enderror
+
+    <div class="flex justify-end">
+        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300">Submit</button>
+    </div>
     </form>
 </div>
 
 <!-- Latest Posts -->
-<div class="mb-4">
-    <h1 class="text-3xl font-extrabold text-blue-800 mb-5">Your Latest Posts</h1>
-    <div>
-        @foreach ($posts as $post)
-            <x-postCard :post="$post" />
-        @endforeach
-    </div>
+<div class="bg-gray-50 p-8 rounded-lg shadow-2xl mb-6 flex justify-center items-center min-h-screen">
+    <div class="w-full max-w-4xl mx-auto">
+        <!-- Page Title -->
+        <h1 class="text-6xl font-extrabold mb-12 text-blue-900 text-center font-oswald">Your Posts</h1>
 
-    <div class="mt-8">
-        {{$posts->links()}}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            @foreach ($posts as $post)
+                <!-- Post Card -->
+                <div class="relative bg-white p-6 rounded-lg transform hover:scale-105 transition-transform duration-300 overflow-hidden break-words">
+                    <!-- Post Content Wrapper -->
+                    <div class="rounded-xl mb-8 px-6 py-10 bg-white overflow-hidden break-words">
+                        <!-- Cover Photo -->
+                        <div class="overflow-hidden">
+                            @if ($post->image)
+                                <img class="rounded-lg mb-6 w-full h-48 object-cover" src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}">
+                            @else
+                                <img class="rounded-lg mb-6 w-full h-48 object-cover" src="{{ asset('storage/posts_images/No image.jpg') }}" alt="{{ $post->title }}">
+                            @endif
+                        </div>
+                        <!-- Post Title -->
+                        <h3 class="text-2xl font-bold text-gray-900 font-varelaRound">{{ $post->title }}</h3>
+                        <!-- Post Metadata -->
+                        <div class="text-xs text-gray-500 mb-4 font-pacifico">
+                            <span class="font-shadowsIntoLight">Posted {{ $post->created_at->diffForHumans() }} by </span>
+                            <a class="text-blue-700 hover:underline" href="{{ route('posts.users', $post->user) }}">{{ $post->user->name }}</a>
+                        </div>
+                        <span class="text-gray-700 font-arvo">{{ Str::words($post->body, 20) }}</span>
+                        <a class="text-blue-400 hover:underline font-workSans" href="{{ route('posts.show', $post) }}">Read more &rarr;</a>
+                    </div>
+                    <!-- Update and Delete Buttons -->
+                    <div class="absolute bottom-4 right-4 flex space-x-2">
+                        <a class="bg-gradient-to-r from-green-400 to-green-600 text-white px-5 py-3 rounded-full hover:from-green-500 hover:to-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 transition duration-300" href="{{ route('posts.edit', $post) }}">Update</a>
+                        <form action="{{ route('posts.destroy', $post) }}" method="post" onsubmit="return confirm('Are you sure you want to delete this post?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="bg-gradient-to-r from-red-400 to-red-600 text-white px-5 py-3 rounded-full hover:from-red-500 hover:to-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 transition duration-300">
+                                Delete
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+        <!-- Pagination Links -->
+        <div class="mt-8">
+            {{ $posts->links() }}
+        </div>
     </div>
 </div>
-
 
 <!-- Sales Chart -->
 <div class="bg-white p-4 rounded-lg shadow mb-6">

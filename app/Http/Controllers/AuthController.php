@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Validation\Rules\Unique;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use App\Events\UserSubscribed;
 
 class AuthController extends Controller
 {
@@ -28,6 +29,10 @@ class AuthController extends Controller
             Auth::login($user);
 
             event(new Registered($user));
+
+            if ($request->subscribe) {
+                event(new UserSubscribed($user));
+            }
 
             // Redirect
             return redirect()->route('dashboard');

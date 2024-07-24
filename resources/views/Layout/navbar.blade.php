@@ -22,13 +22,15 @@
         </div>
         @endauth
     </div>
-    <ul class="navbar ml-5 text-white flex space-x-4">
+    <ul class="text-2xl ml-5 font-titilliumWeb font-bold text-white flex space-x-4">
         <li><a href="{{ route('posts.index') }}" class="hover:text-gray-300">Home</a></li>
-        <li><a href="{{ route('contact') }}" class="hover:text-gray-300">Contact</a></li>
         <li><a href="{{ route('about') }}" class="hover:text-gray-300">About</a></li>
+        @auth
+            <li><a href="{{ route('contact') }}" class="hover:text-gray-300">Contact</a></li>
+        @endauth
         @guest
-        <li><a href="{{ route('login') }}" class="hover:text-gray-300">Login</a></li>
-        <li><a href="{{ route('register') }}" class="hover:text-gray-300">Register</a></li>
+            <li><a href="{{ route('login') }}" class="hover:text-gray-300">Login</a></li>
+            <li><a href="{{ route('register') }}" class="hover:text-gray-300">Register</a></li>
         @endguest
     </ul>
 </nav>

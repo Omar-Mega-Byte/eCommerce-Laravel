@@ -1,10 +1,39 @@
-@props(['post'])
+@props(['post', 'full' => false])
 
-<div class="bg-white shadow-md rounded-lg mb-6 transition-transform transform hover:scale-105 hover:shadow-lg px-6 py-4">
-    <h3 class="text-xl font-semibold text-gray-900 font-sans">{{ $post->title }}</h3>
-    <div class="text-xs text-gray-500 mb-4 font-roboto">
-        <span>Posted {{$post->created_at->diffForHumans()}} by </span>
-        <a class="text-blue-600 hover:underline" href="{{Route('posts.users',$post->user)}}">{{ $post->user->name }}</a>
+<!-- Post Card -->
+<div class="relative bg-white p-6 rounded-lg transform hover:scale-105 transition-transform duration-300 overflow-hidden break-words">
+    <!-- Post Content Wrapper -->
+    <div class="rounded-xl mb-8 px-6 py-10 bg-white overflow-hidden break-words">
+        <!-- Cover Photo -->
+        <div class="overflow-hidden">
+            @if ($post->image)
+                <img class="rounded-lg mb-6 w-full h-48 object-cover" src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->title }}">
+            @else
+                <img class="rounded-lg mb-6 w-full h-48 object-cover" src="{{ asset('storage/posts_images/No image.jpg') }}" alt="{{ $post->title }}">
+            @endif
+        </div>
+        <!-- Post Title -->
+        <h3 class="text-2xl font-bold text-gray-900 font-varelaRound"">{{ $post->title }}</h3>
+        <!-- Post Metadata -->
+        <div class="text-xs text-gray-500 mb-4 font-pacifico">
+            <span class="font-shadowsIntoLight">Posted {{ $post->created_at->diffForHumans() }} by </span>
+            <a class="text-blue-700 hover:underline" href="{{ route('posts.users', $post->user) }}">{{ $post->user->name }}</a>
+        </div>
+        <!-- Post Body -->
+        @if ($full)
+            <div>
+                <span class="text-gray-700 font-arvo">{{ $post->body }}</span>
+            </div>
+        @else
+            <div>
+                <span class="text-gray-700 font-poppins">{{ Str::words($post->body, 20) }}</span>
+                <a class="text-blue-400 hover:underline font-workSans" href="{{ route('posts.show', $post) }}">Read more &rarr;</a>
+            </div>
+        @endif
     </div>
-    <p class="text-gray-600 font-roboto">{{ Str::words($post->body, 20, '...') }}</p>
+
+    <!-- Slot for additional content -->
+    <div class="absolute bottom-4 right-4">
+        {{ $slot }}
+    </div>
 </div>
