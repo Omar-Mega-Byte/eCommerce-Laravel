@@ -7,9 +7,9 @@
 <body class="bg-gray-100">
 
     <!-- Sidebar initially hidden -->
-    <div id="sidebar" class="fixed top-0 right-0 h-full w-64 bg-gradient-to-l from-blue-400 to-purple-600 text-white p-6 transform translate-x-full transition-transform duration-300 ease-in-out shadow-lg rounded-l-lg z-50">
+    <div id="sidebar" class="fixed border-white border-4 top-0 right-0 h-full w-64 bg-gradient-to-l from-blue-400 to-purple-600 text-white p-6 transform translate-x-full transition-transform duration-300 ease-in-out shadow-lg rounded-l-lg z-50">
         <h2 class="text-xl font-semibold mb-6">E-commerce Links</h2>
-        <ul class="space-y-4">
+        <ul class="space-y-4 font-inconsolata font-bold">
             <li><a href="#" class="text-white hover:text-gray-300">Shop</a></li>
             <li><a href="#" class="text-white hover:text-gray-300">Products</a></li>
             <li><a href="#" class="text-white hover:text-gray-300">Cart</a></li>
@@ -21,7 +21,7 @@
     <div id="overlay" class="fixed inset-0 bg-black opacity-50 hidden z-40"></div>
 
     <!-- Trigger icon/button to toggle sidebar -->
-    <button id="sidebarToggle" class="fixed top-4 right-4 bg-gradient-to-r from-blue-700 to-purple-600 text-white p-3 rounded-md shadow-md focus:outline-none transition-transform duration-300 ease-in-out" style="z-index: 9999;">
+    <button id="sidebarToggle" class="fixed border-white border-2 top-4 right-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white p-3 rounded-3xl shadow-md focus:outline-none transition-transform duration-300 ease-in-out" style="z-index: 9999;">
         <!-- Font Awesome icon -->
         <i class="fas fa-bars"></i>
     </button>

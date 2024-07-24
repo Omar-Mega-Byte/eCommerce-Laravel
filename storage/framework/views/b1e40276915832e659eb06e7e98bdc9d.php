@@ -1,36 +1,67 @@
+<?php $attributes ??= new \Illuminate\View\ComponentAttributeBag;
+
+$__newAttributes = [];
+$__propNames = \Illuminate\View\ComponentAttributeBag::extractPropNames((['post', 'full' => false]));
+
+foreach ($attributes->all() as $__key => $__value) {
+    if (in_array($__key, $__propNames)) {
+        $$__key = $$__key ?? $__value;
+    } else {
+        $__newAttributes[$__key] = $__value;
+    }
+}
+
+$attributes = new \Illuminate\View\ComponentAttributeBag($__newAttributes);
+
+unset($__propNames);
+unset($__newAttributes);
+
+foreach (array_filter((['post', 'full' => false]), 'is_string', ARRAY_FILTER_USE_KEY) as $__key => $__value) {
+    $$__key = $$__key ?? $__value;
+}
+
+$__defined_vars = get_defined_vars();
+
+foreach ($attributes->all() as $__key => $__value) {
+    if (array_key_exists($__key, $__defined_vars)) unset($$__key);
+}
+
+unset($__defined_vars); ?>
+
+
 <?php $__env->startSection('title', 'E-commerce Dashboard'); ?>
 
 <?php $__env->startSection('main_content'); ?>
 <div class="container mx-auto">
     <!-- Welcome Section -->
     <div class="mb-10">
-        <h1 class="text-3xl font-extrabold text-blue-800">Welcome, <?php echo e(auth()->user()->name); ?></h1>
+        <h1 class="text-3xl font-extrabold text-blue-800 font-pacifico">Welcome, <?php echo e(auth()->user()->name); ?></h1>
+        <p class="text-gray-600 font-lobster">You have <?php echo e($posts->total()); ?> posts</p>
         <p class="text-gray-600">Here's an overview of your eCommerce activities.</p>
     </div>
 
     <!-- Statistics Cards -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <div class="bg-gradient-to-r from-blue-400 to-blue-500 text-white p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105" x-data="{ tooltip: false }" @mouseover="tooltip = true" @mouseleave="tooltip = false">
-            <h2 class="text-lg font-semibold">Total Sales</h2>
-            <p class="text-2xl font-bold">$<span id="totalSales">123,456.78</span></p>
+            <h2 class="text-lg font-semibold font-bebas">Total Sales</h2>
+            <p class="text-2xl font-bold font-righteous">$<span id="totalSales">123,456.78</span></p>
             <div x-show="tooltip" class="absolute bg-gray-700 text-white text-xs rounded py-1 px-4 right-0 bottom-full mb-2">Total revenue generated</div>
         </div>
         <div class="bg-gradient-to-r from-green-400 to-green-500 text-white p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105" x-data="{ tooltip: false }" @mouseover="tooltip = true" @mouseleave="tooltip = false">
-            <h2 class="text-lg font-semibold">New Orders</h2>
-            <p class="text-2xl font-bold"><span id="newOrders">150</span></p>
+            <h2 class="text-lg font-semibold font-bebas">New Orders</h2>
+            <p class="text-2xl font-bold font-righteous"><span id="newOrders">150</span></p>
             <div x-show="tooltip" class="absolute bg-gray-700 text-white text-xs rounded py-1 px-4 right-0 bottom-full mb-2">Orders received today</div>
         </div>
         <div class="bg-gradient-to-r from-purple-400 to-purple-500 text-white p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105" x-data="{ tooltip: false }" @mouseover="tooltip = true" @mouseleave="tooltip = false">
-            <h2 class="text-lg font-semibold">Total Customers</h2>
-            <p class="text-2xl font-bold"><span id="totalCustomers">1,234</span></p>
+            <h2 class="text-lg font-semibold font-bebas">Total Customers</h2>
+            <p class="text-2xl font-bold font-righteous"><span id="totalCustomers">1,234</span></p>
             <div x-show="tooltip" class="absolute bg-gray-700 text-white text-xs rounded py-1 px-4 right-0 bottom-full mb-2">Number of registered customers</div>
         </div>
     </div>
 
+    <!-- Sessions -->
     <?php if(session('success')): ?>
-    <div>
-        <p class="text-green-500 font-bold mb-5">
-            <?php if (isset($component)) { $__componentOriginalc115b9ff12b76915cc22a6040e27d5b7 = $component; } ?>
+        <?php if (isset($component)) { $__componentOriginalc115b9ff12b76915cc22a6040e27d5b7 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalc115b9ff12b76915cc22a6040e27d5b7 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.flashMsg','data' => ['msg' => ''.e(session('success')).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('flashMsg'); ?>
@@ -49,14 +80,55 @@
 <?php if (isset($__componentOriginalc115b9ff12b76915cc22a6040e27d5b7)): ?>
 <?php $component = $__componentOriginalc115b9ff12b76915cc22a6040e27d5b7; ?>
 <?php unset($__componentOriginalc115b9ff12b76915cc22a6040e27d5b7); ?>
-<?php endif; ?></p>
-    </div>
 <?php endif; ?>
+    <?php elseif(session('delete')): ?>
+        <?php if (isset($component)) { $__componentOriginalc115b9ff12b76915cc22a6040e27d5b7 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginalc115b9ff12b76915cc22a6040e27d5b7 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.flashMsg','data' => ['msg' => ''.e(session('delete')).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('flashMsg'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['msg' => ''.e(session('delete')).'']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginalc115b9ff12b76915cc22a6040e27d5b7)): ?>
+<?php $attributes = $__attributesOriginalc115b9ff12b76915cc22a6040e27d5b7; ?>
+<?php unset($__attributesOriginalc115b9ff12b76915cc22a6040e27d5b7); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalc115b9ff12b76915cc22a6040e27d5b7)): ?>
+<?php $component = $__componentOriginalc115b9ff12b76915cc22a6040e27d5b7; ?>
+<?php unset($__componentOriginalc115b9ff12b76915cc22a6040e27d5b7); ?>
+<?php endif; ?>
+    <?php elseif(session('update')): ?>
+        <?php if (isset($component)) { $__componentOriginalc115b9ff12b76915cc22a6040e27d5b7 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginalc115b9ff12b76915cc22a6040e27d5b7 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.flashMsg','data' => ['msg' => ''.e(session('update')).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('flashMsg'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['msg' => ''.e(session('update')).'']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginalc115b9ff12b76915cc22a6040e27d5b7)): ?>
+<?php $attributes = $__attributesOriginalc115b9ff12b76915cc22a6040e27d5b7; ?>
+<?php unset($__attributesOriginalc115b9ff12b76915cc22a6040e27d5b7); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalc115b9ff12b76915cc22a6040e27d5b7)): ?>
+<?php $component = $__componentOriginalc115b9ff12b76915cc22a6040e27d5b7; ?>
+<?php unset($__componentOriginalc115b9ff12b76915cc22a6040e27d5b7); ?>
+<?php endif; ?>
+    <?php endif; ?>
 
 <!-- Posts Form -->
 <div class="bg-white p-6 rounded-lg shadow-lg mb-6">
     <h2 class="text-2xl font-semibold text-gray-900 mb-6">Create a New Post</h2>
-    <form action="<?php echo e(route('posts.store')); ?>" method="POST">
+    <form action="<?php echo e(route('posts.store')); ?>" method="POST" enctype="multipart/form-data">
         <?php echo csrf_field(); ?>
         <!-- Title Field -->
     <div class="mb-6">
@@ -90,46 +162,80 @@ endif;
 unset($__errorArgs, $__bag); ?>
     </div>
 
-        <div class="flex justify-end">
-            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300">Submit</button>
-        </div>
+    
+    <div class="mb-4">
+        <label for="image">Cover photo</label>
+        <input type="file" name="image" id="image">
+    </div>
+
+    <?php $__errorArgs = ['image'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+        <p class="text-red-500 font-bold text-xs italic mt-2"><?php echo e($message); ?></p>
+    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+
+    <div class="flex justify-end">
+        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300">Submit</button>
+    </div>
     </form>
 </div>
 
 <!-- Latest Posts -->
-<div class="mb-4">
-    <h1 class="text-3xl font-extrabold text-blue-800 mb-5">Your Latest Posts</h1>
-    <div>
-        <?php $__currentLoopData = $posts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $post): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-            <?php if (isset($component)) { $__componentOriginal4791c27587e64118b1fe477bced8deb1 = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginal4791c27587e64118b1fe477bced8deb1 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.postCard','data' => ['post' => $post]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
-<?php $component->withName('postCard'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
-<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
-<?php endif; ?>
-<?php $component->withAttributes(['post' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($post)]); ?>
-<?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__attributesOriginal4791c27587e64118b1fe477bced8deb1)): ?>
-<?php $attributes = $__attributesOriginal4791c27587e64118b1fe477bced8deb1; ?>
-<?php unset($__attributesOriginal4791c27587e64118b1fe477bced8deb1); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginal4791c27587e64118b1fe477bced8deb1)): ?>
-<?php $component = $__componentOriginal4791c27587e64118b1fe477bced8deb1; ?>
-<?php unset($__componentOriginal4791c27587e64118b1fe477bced8deb1); ?>
-<?php endif; ?>
-        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-    </div>
+<div class="bg-gray-50 p-8 rounded-lg shadow-2xl mb-6 flex justify-center items-center min-h-screen">
+    <div class="w-full max-w-4xl mx-auto">
+        <!-- Page Title -->
+        <h1 class="text-6xl font-extrabold mb-12 text-blue-900 text-center font-oswald">Your Posts</h1>
 
-    <div class="mt-8">
-        <?php echo e($posts->links()); ?>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <?php $__currentLoopData = $posts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $post): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <!-- Post Card -->
+                <div class="relative bg-white p-6 rounded-lg transform hover:scale-105 transition-transform duration-300 overflow-hidden break-words">
+                    <!-- Post Content Wrapper -->
+                    <div class="rounded-xl mb-8 px-6 py-10 bg-white overflow-hidden break-words">
+                        <!-- Cover Photo -->
+                        <div class="overflow-hidden">
+                            <?php if($post->image): ?>
+                                <img class="rounded-lg mb-6 w-full h-64 object-cover" src="<?php echo e(asset('storage/' . $post->image)); ?>" alt="<?php echo e($post->title); ?>">
+                            <?php else: ?>
+                                <img class="rounded-lg mb-6 w-full h-64 object-cover" src="<?php echo e(asset('storage/posts_images/No image.jpg')); ?>" alt="<?php echo e($post->title); ?>">
+                            <?php endif; ?>
+                        </div>
+                        <!-- Post Title -->
+                        <h3 class="text-2xl font-bold text-gray-900 font-varelaRound"><?php echo e($post->title); ?></h3>
+                        <!-- Post Metadata -->
+                        <div class="text-xs text-gray-500 mb-4 font-pacifico">
+                            <span class="font-shadowsIntoLight">Posted <?php echo e($post->created_at->diffForHumans()); ?> by </span>
+                            <a class="text-blue-700 hover:underline" href="<?php echo e(route('posts.users', $post->user)); ?>"><?php echo e($post->user->name); ?></a>
+                        </div>
+                        <span class="text-gray-700 font-arvo"><?php echo e(Str::words($post->body, 20)); ?></span>
+                        <a class="text-blue-400 hover:underline font-workSans" href="<?php echo e(route('posts.show', $post)); ?>">Read more &rarr;</a>
+                    </div>
+                    <!-- Update and Delete Buttons -->
+                    <div class="absolute bottom-4 right-4 flex space-x-2">
+                        <a class="bg-gradient-to-r from-green-400 to-green-600 text-white px-5 py-3 rounded-full hover:from-green-500 hover:to-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 transition duration-300" href="<?php echo e(route('posts.edit', $post)); ?>">Update</a>
+                        <form action="<?php echo e(route('posts.destroy', $post)); ?>" method="post" onsubmit="return confirm('Are you sure you want to delete this post?');">
+                            <?php echo csrf_field(); ?>
+                            <?php echo method_field('DELETE'); ?>
+                            <button type="submit" class="bg-gradient-to-r from-red-400 to-red-600 text-white px-5 py-3 rounded-full hover:from-red-500 hover:to-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 transition duration-300">
+                                Delete
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        </div>
+        <!-- Pagination Links -->
+        <div class="mt-8">
+            <?php echo e($posts->links()); ?>
 
+        </div>
     </div>
 </div>
-
 
 <!-- Sales Chart -->
 <div class="bg-white p-4 rounded-lg shadow mb-6">
