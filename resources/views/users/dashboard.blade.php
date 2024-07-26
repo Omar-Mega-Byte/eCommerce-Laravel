@@ -16,17 +16,17 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <div class="bg-gradient-to-r from-blue-400 to-blue-500 text-white p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105" x-data="{ tooltip: false }" @mouseover="tooltip = true" @mouseleave="tooltip = false">
             <h2 class="text-lg font-semibold font-bebas">Total Sales</h2>
-            <p class="text-2xl font-bold font-righteous">$<span id="totalSales">123,456.78</span></p>
+            <p class="text-2xl font-bold font-righteous">$<span id="totalSales">{{auth()->user()->total_sales}}</span></p>
             <div x-show="tooltip" class="absolute bg-gray-700 text-white text-xs rounded py-1 px-4 right-0 bottom-full mb-2">Total revenue generated</div>
         </div>
         <div class="bg-gradient-to-r from-green-400 to-green-500 text-white p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105" x-data="{ tooltip: false }" @mouseover="tooltip = true" @mouseleave="tooltip = false">
             <h2 class="text-lg font-semibold font-bebas">New Orders</h2>
-            <p class="text-2xl font-bold font-righteous"><span id="newOrders">150</span></p>
+            <p class="text-2xl font-bold font-righteous"><span id="newOrders">{{auth()->user()->orders}}</span></p>
             <div x-show="tooltip" class="absolute bg-gray-700 text-white text-xs rounded py-1 px-4 right-0 bottom-full mb-2">Orders received today</div>
         </div>
         <div class="bg-gradient-to-r from-purple-400 to-purple-500 text-white p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105" x-data="{ tooltip: false }" @mouseover="tooltip = true" @mouseleave="tooltip = false">
             <h2 class="text-lg font-semibold font-bebas">Total Customers</h2>
-            <p class="text-2xl font-bold font-righteous"><span id="totalCustomers">1,234</span></p>
+            <p class="text-2xl font-bold font-righteous"><span id="totalCustomers">{{auth()->user()->total_customers}}</span></p>
             <div x-show="tooltip" class="absolute bg-gray-700 text-white text-xs rounded py-1 px-4 right-0 bottom-full mb-2">Number of registered customers</div>
         </div>
     </div>

@@ -11,7 +11,7 @@
         <h2 class="text-xl font-semibold mb-6">E-commerce Links</h2>
         <ul class="space-y-4 font-inconsolata font-bold">
             <li><a href="#" class="text-white hover:text-gray-300">Shop</a></li>
-            <li><a href="#" class="text-white hover:text-gray-300">Products</a></li>
+            <li><a href="{{route('products.index')}}" class="text-white hover:text-gray-300">Products</a></li>
             <li><a href="#" class="text-white hover:text-gray-300">Cart</a></li>
             <li><a href="#" class="text-white hover:text-gray-300">Checkout</a></li>
         </ul>
