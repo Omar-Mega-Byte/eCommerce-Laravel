@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ContactUsController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ResetPasswordController;
 
 Route::redirect('/','posts');
@@ -68,6 +69,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('posts', PostController::class);
+
+Route::resource('products', ProductController::class);
 
 Route::resource('contacts', ContactUsController::class);
 
