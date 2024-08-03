@@ -55,11 +55,10 @@ class PostController extends Controller implements HasMiddleware
             'image' => ['Nullable','file','max:3000','mimes:png,jpg,webp'] //3000KB
         ]);
 
+        // Store image if exists
         $path = null;
-
-        // Store image if exist
-        if($request->hasFile('image')){
-            $path = Storage::disk('public')->put('/posts_images' , $request->image);
+        if ($request->hasFile('image')) {
+            $path = Storage::disk('public')->put('posts_images', $request->image);
         }
 
         //Create Post
@@ -69,8 +68,8 @@ class PostController extends Controller implements HasMiddleware
                 'body'=>$request->body,
             ]);
 
-        // Send Email
-        Mail::to(Auth::user())->send(new WelcomeMail(Auth::user(), $post));
+        // // Send Email
+        // Mail::to(Auth::user())->send(new WelcomeMail(Auth::user(), $post));
 
         //redirect
             return back()->with('success','Your post has been created');

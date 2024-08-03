@@ -10,8 +10,13 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::latest()->paginate(14);  // orderBy('created_at','desc') = latest()
-        return view('pages.products',[
+        return view('products.index',[
             'products' => $products
         ]);
+    }
+
+    public function show(Product $product)
+    {
+        return view('products.show' , [ 'product' => $product ]);
     }
 }

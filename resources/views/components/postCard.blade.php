@@ -13,21 +13,21 @@
             @endif
         </div>
         <!-- Post Title -->
-        <h3 class="text-2xl font-bold text-gray-900 font-varelaRound"">{{ $post->title }}</h3>
+        <h3 class="text-2xl font-bold text-gray-900">{{ $post->title }}</h3>
         <!-- Post Metadata -->
-        <div class="text-xs text-gray-500 mb-4 font-pacifico">
+        <div class="text-xs text-gray-500 mb-4">
             <span class="font-shadowsIntoLight">Posted {{ $post->created_at->diffForHumans() }} by </span>
             <a class="text-blue-700 hover:underline" href="{{ route('posts.users', $post->user) }}">{{ $post->user->name }}</a>
         </div>
         <!-- Post Body -->
         @if ($full)
             <div>
-                <span class="text-gray-700 font-arvo">{{ $post->body }}</span>
+                <span class="text-gray-700">{{ $post->body }}</span>
             </div>
         @else
             <div>
-                <span class="text-gray-700 font-poppins">{{ Str::words($post->body, 20) }}</span>
-                <a class="text-blue-400 hover:underline font-workSans" href="{{ route('posts.show', $post) }}">Read more &rarr;</a>
+                <span class="text-gray-700">{{ Str::words($post->body, 20) }}</span>
+                <a class="text-blue-400 hover:underline" href="{{ route('posts.show', $post) }}">Read more &rarr;</a>
             </div>
         @endif
     </div>

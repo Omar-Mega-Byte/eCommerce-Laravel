@@ -60,23 +60,31 @@ class AuthController extends Controller
             return back()->with('message', 'Verification link sent!');
         }
 
-    public function login(Request $request)
-    {
-        //Validate
-        $fields = $request->validate([
-            'email' => ['required', 'MAX:255', 'email'],
-            'password' => ['required']
-        ]);
-
-        //Try to login
-        if (Auth::attempt($fields, $request->remember)) {
-            return redirect()->intended('dashboard');
-        } else {
-            return back()->withErrors([
-                'failed' => 'The provided Input isnt correct'
+        public function login(Request $request)
+        {
+            // Validate the input fields
+            $fields = $request->validate([
+                'email' => ['required', 'max:255', 'email'],
+                'password' => ['required']
             ]);
+
+            // Try to login
+            if (Auth::attempt(['email' => $fields['email'], 'password' => $fields['password']], $request->remember)) {
+                // Retrieve the authenticated user
+                $user = Auth::user();
+
+                // Check the user type and redirect accordingly
+                if ($user->type === 'admin') {
+                    return redirect()->intended('admin'); // Redirect to admin dashboard
+                } else {
+                    return redirect()->intended('dashboard'); // Redirect to customer dashboard
+                }
+            } else {
+                return back()->withErrors([
+                    'failed' => 'The provided credentials are incorrect.'
+                ]);
+            }
         }
-    }
 
     public function logout(Request $request)
     {

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\dashboardController;
@@ -49,6 +50,9 @@ Route::middleware('guest')->group(function(){
     Route::post('/forgot-password', [ResetPasswordController::class, 'passwordEmail']);
     Route::get('/reset-password/{token}', [ResetPasswordController::class, 'passwordReset'])->name('password.reset');
     Route::post('/reset-password', [ResetPasswordController::class, 'passwordUpdate'])->name('password.update');
+
+    // Admin Dashboard route
+    Route::get('/admin', [AdminController::class, 'index'])->middleware('verified')->name('admin');
 });
 
 Route::middleware('auth')->group(function () {
@@ -66,6 +70,9 @@ Route::middleware('auth')->group(function () {
 
     // Resending the Verification Email route
     Route::post('/email/verification-notification', [AuthController::class, 'verifyEmailResend'])->middleware('throttle:6,1')->name('verification.send');
+
+    // Admin Dashboard route
+    Route::get('/admin', [AdminController::class, 'index'])->middleware('verified')->name('admin');
 });
 
 Route::resource('posts', PostController::class);

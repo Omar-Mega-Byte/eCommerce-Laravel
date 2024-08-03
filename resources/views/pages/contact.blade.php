@@ -51,6 +51,3 @@
 </form>
 </div>
 @endsection
-@section('footer_text')
-    © 2024 My Website. Built with Laravel and cooler Tailwind CSS.
-@endsection

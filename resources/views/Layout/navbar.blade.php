@@ -1,36 +1,32 @@
-<nav class="flex items-center justify-between">
-    <div class="flex items-center space-x-4">
-        @auth
-        <div class="relative">
-            <button id="userMenuButton" class="flex items-center text-white focus:outline-none">
-                <!-- User Icon -->
-                <svg class="w-10 h-10 rounded-full" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                </svg>
-            </button>
-
-            <div id="userMenu" class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden transition-transform transform origin-top-left scale-95">
-                <h3 class="px-4 py-2 text-white bg-gradient-to-r from-blue-700 to-purple-900 font-semibold rounded-t-md">{{ auth()->user()->name }}</h3>
-                <a href="{{ route('dashboard') }}" class="block px-4 py-2 text-gray-800 hover:bg-blue-100 transition-colors duration-300">Dashboard</a>
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit" class="block w-full text-left px-4 py-2 text-gray-800 hover:bg-blue-100 transition-colors duration-300">Logout</button>
-                </form>
-            </div>
-
-
-        </div>
-        @endauth
+<div>
+    @auth
+        <button id="userMenuButton" class="font-righteous font-medium items-center text-gray-900 mb-4 md:mb-0">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-blue-700 mt-2 rounded-full mr-4" viewBox="0 0 24 24">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+        </button>
+        <span class="text-5xl">E-Commerce</span>
+        <div id="userMenu" class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg hidden transition-transform transform origin-top-left scale-95">
+            <h3 class="px-4 py-2 text-white bg-gradient-to-r from-blue-700 to-purple-900 font-semibold rounded-t-md">{{ auth()->user()->name }}</h3>
+            @if (auth()->user()->type === 'admin')
+            <a href="{{ route('admin') }}" class="block px-4 py-2 text-gray-800 hover:bg-blue-100 transition-colors duration-300">Dashboard</a>
+            @else
+            <a href="{{ route('dashboard') }}" class="block px-4 py-2 text-gray-800 hover:bg-blue-100 transition-colors duration-300">Dashboard</a>
+            @endif
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="block w-full text-left px-4 py-2 text-gray-800 hover:bg-blue-100 transition-colors duration-300">Logout</button>
+            </form>
     </div>
-    <ul class="text-2xl ml-5 font-titilliumWeb font-bold text-white flex space-x-4">
-        <li><a href="{{ route('posts.index') }}" class="hover:text-gray-300">Home</a></li>
-        <li><a href="{{ route('about') }}" class="hover:text-gray-300">About</a></li>
-        @auth
-            <li><a href="{{ route('contact') }}" class="hover:text-gray-300">Contact</a></li>
-        @endauth
-        @guest
-            <li><a href="{{ route('login') }}" class="hover:text-gray-300">Login</a></li>
-            <li><a href="{{ route('register') }}" class="hover:text-gray-300">Register</a></li>
-        @endguest
-    </ul>
-</nav>
+    @endauth
+</div>
+<ul  class="text-xl md:mr-auto md:ml-4 mt-3 md:py-1 md:pl-4 md:border-l md:border-gray-400 flex flex-wrap">
+    <li><a href="{{ route('posts.index') }}" class="mr-5 hover:text-gray-900">Home</a></li>
+    <li><a href="{{ route('about') }}" class="mr-5 hover:text-gray-900">About</a></li>
+    @auth
+        <li><a href="{{ route('contact') }}" class="mr-5 hover:text-gray-900">Contact</a></li>
+    @endauth
+    @guest
+        <li><a href="{{ route('login') }}" class="mr-5 hover:text-gray-900">Login</a></li>
+        <li><a href="{{ route('register') }}" class="mr-5 hover:text-gray-900">Register</a></li>
+    @endguest
+</ul>
