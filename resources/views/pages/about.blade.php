@@ -26,17 +26,17 @@
         <h2 class="text-4xl font-semibold font-varelaRound text-gray-900 mb-8 text-center">Meet Our Team</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
             <div class="text-center transform transition hover:scale-105">
-                <img src="/storage/images/Team 1.gif" alt="Team Member 1" class="rounded-full w-28 mx-auto mb-4 shadow-lg">
+                <img src="storage/images/Team 1.gif" alt="Team Member 1" class="rounded-full w-28 mx-auto mb-4 shadow-lg">
                 <h3 class="text-2xl font-semibold mb-2">ADEL SHAKAL</h3>
                 <p class="text-gray-700">Founder & CEO</p>
             </div>
             <div class="text-center transform transition hover:scale-105">
-                <img src="/storage/images/Team 3.gif" alt="Team Member 2" class="rounded-full w-28 mx-auto mb-4 shadow-lg">
+                <img src="storage/images/Team 3.gif" alt="Team Member 2" class="rounded-full w-28 mx-auto mb-4 shadow-lg">
                 <h3 class="text-2xl font-semibold mb-2">ELSISI</h3>
                 <p class="text-gray-700">Head of Operations</p>
             </div>
             <div class="text-center transform transition hover:scale-105">
-                <img src="/storage/images/Team 2.gif" alt="Team Member 3" class="rounded-full w-28 mx-auto mb-4 shadow-lg">
+                <img src="storage/images/Team 2.gif" alt="Team Member 3" class="rounded-full w-28 mx-auto mb-4 shadow-lg">
                 <h3 class="text-2xl font-semibold mb-2">OMAR AHMED</h3>
                 <p class="text-gray-700">Marketing Manager</p>
             </div>

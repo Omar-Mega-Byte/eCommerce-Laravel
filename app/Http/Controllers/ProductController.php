@@ -14,6 +14,14 @@ class ProductController extends Controller
             'products' => $products
         ]);
     }
+    
+    public function shop()
+    {
+            $products = Product::latest()->paginate(14);  // orderBy('created_at','desc') = latest()
+            return view('products.shop',[
+                'products' => $products
+            ]);
+    }
 
     public function show(Product $product)
     {

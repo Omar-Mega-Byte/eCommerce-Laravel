@@ -1,43 +1,37 @@
-@props(['product', 'full' => false])
+@props(['product', 'full' => false, 'shop' => false])
 
-<!-- Product Card -->
-<div class="relative bg-white p-6 rounded-lg transform hover:scale-105 transition-transform duration-300 overflow-hidden break-words">
-    <!-- Product Content Wrapper -->
-    <div class="rounded-xl mb-8 px-6 py-10 bg-white overflow-hidden break-words">
-        <!-- Cover Photo -->
-        <div class="overflow-hidden">
-            @if ($product->image)
-                <img class="rounded-lg mb-6 w-80 h-72 object-cover" src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
-            @else
-                <img class="rounded-lg mb-6 w-full h-48 object-cover" src="{{ asset('storage/products_images/No image.jpg') }}" alt="{{ $product->name }}">
-            @endif
+<div class="bg-white p-4 w-64 rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300 overflow-hidden border border-gray-300 hover:shadow-2xl">
+    <div class="rounded-lg px-4 py-5 bg-white overflow-hidden">
+        <div class="overflow-hidden rounded-lg shadow-md mb-4">
+            <img class="rounded-md w-full h-40 object-cover transition-transform duration-300 hover:scale-105"
+                src="{{ $product->image ? asset('storage/' . $product->image) : asset('storage/products_images/No image.jpg') }}"
+                alt="{{ $product->name }}">
         </div>
-        <!-- product Title -->
-        <h3 class="text-3xl font-bold text-gray-900">{{ $product->name}}</h3>
-        <!-- product Metadata -->
-        <div class="text-gray-500">
-            <span class="">Uploded: {{ $product->created_at->diffForHumans() }} </span>
+        <h3 class="text-lg font-bold text-gray-800 mb-1 hover:text-blue-500 transition-colors duration-300">{{ $product->name }}</h3>
+        <div class="text-gray-600 text-xs space-y-1">
+            <div><span>Uploaded: {{ $product->created_at->diffForHumans() }}</span></div>
+            <div><span>Type: {{ $product->type }}</span></div>
+            <div class="text-green-700 font-semibold">Price: {{ $product->price }} EGP</div>
         </div>
-        <div class="text-gray-500">
-            <span class="">Type: {{$product->type}}</span>
-        </div>
-        <div class="text-gray-500 mb-2">
-            <span class="">Price:{{$product->price}} EGP</span>
-        </div>
-        <!-- product Body -->
-        @if ($full)
-            <div>
-                <span class="text-gray-700
-        @else
-            <div>
-                <span class="text-gray-700">{{ Str::words($product->description, 20) }}</span>
-                <a class="text-blue-400 hover:underline" href="{{ route('products.show', $product) }}">Read more &rarr;</a>
+
+        @if (!$full)
+            <div class="mt-2 text-gray-700 text-xs">
+                <p>{{ Str::words($product->description, 10) }}</p>
+                <a class="text-blue-600 hover:text-blue-700 hover:underline transition-colors duration-300"
+                href="{{ route('products.show', $product) }}">Read more &rarr;</a>
             </div>
         @endif
-    </div>
 
-    <!-- Slot for additional content -->
-    <div class="absolute bottom-4 right-4">
+        @if ($shop)
+            <form action="{{ route('cart.add', $product->id) }}" method="POST">
+                @csrf
+                <button type="submit" class="bg-blue-600 text-white px-3 py-1 text-sm rounded-full shadow-md mt-4 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-300 flex items-center justify-center">
+                    Add to Cart
+                </button>
+            </form>
+        @endif
+    </div>
+    <div class="absolute bottom-3 left-3">
         {{ $slot }}
     </div>
 </div>

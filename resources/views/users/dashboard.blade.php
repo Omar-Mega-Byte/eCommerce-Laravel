@@ -7,7 +7,7 @@
 <div class="container mx-auto">
     <!-- Welcome Section -->
     <div class="mb-10">
-        <h1 class="text-3xl text-blue-800">Welcome, {{ auth()->user()->name }}</h1>
+        <h1 class="text-lg text-blue-800">Welcome, {{ auth()->user()->name }}</h1>
         <p class="text-gray-600">You have {{$posts->total()}} posts</p>
         <p class="text-gray-600">Here's an overview of your eCommerce activities.</p>
     </div>

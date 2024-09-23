@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ResetPasswordController;
@@ -79,7 +80,22 @@ Route::resource('posts', PostController::class);
 
 Route::resource('products', ProductController::class);
 
+Route::resource('cart', CartController::class);
+
+Route::post('/cart/add/{id}', [CartController::class, 'addToCart'])->name('cart.add');
+Route::get('/cart', [CartController::class, 'showCart'])->name('cart.show');
+Route::post('/cart/remove/{id}', [CartController::class, 'removeFromCart'])->name('cart.remove');
+
+Route::get('/products.shop', [ProductController::class, 'shop'])->name('shop');
+
+Route::get('/cart.index', [CartController::class, 'showCart'])->name('cart');
+Route::get('/cart.remove', [CartController::class, 'removeFromCart'])->name('removeFromCart');
+Route::post('/cart.clear', [CartController::class, 'clearCart'])->name('cart.clear');
+
+// Route::view('/cart', 'cart.index')->name('cart');
+
 Route::resource('contacts', ContactUsController::class);
 
-Route::get('/{user}/posts', [dashboardController::class, 'userPosts'])->name('posts.users');
+Route::resource('users', AdminController::class);
 
+Route::get('/{user}/posts', [dashboardController::class, 'userPosts'])->name('posts.users');

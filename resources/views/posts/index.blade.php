@@ -5,7 +5,7 @@
 @endsection
 
 @section('main_content')
-<div class="bg-gray-50 p-8 rounded-lg shadow-2xl mb-6 flex justify-center items-center min-h-screen">
+<div class=" mb-6 flex justify-center items-center min-h-screen">
     <div class="w-full max-w-4xl mx-auto">
         <!-- Page Title -->
         <h1 class="text-6xl font-bold mb-12 text-blue-900 text-center">Latest Posts</h1>
